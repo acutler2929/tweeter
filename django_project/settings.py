@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "accounts.apps.AccountsConfig",
     "tweeter.apps.TweeterConfig",
+    "tweets.apps.TweetsConfig",
 ]
 
 MIDDLEWARE = [
