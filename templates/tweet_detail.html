@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% comment %}
+        Alice Cutler
+        CIS 218
+        October 25, 2023
+{% endcomment %}
+
+{% block title %}Tweet Detail{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <p>
+            {{ tweet.author }} | {{ tweet.date }}
+        </p>
+        <p>{{ tweet.body }}</p>
+    </div>
+    <p>
+        Back to
+        <a href="{% url 'tweet_feed' %}">
+            Tweet Feed
+        </a>
+    </p>
+{% endblock content %}

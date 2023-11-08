@@ -10,7 +10,7 @@
 
 {% block content %}
     <h3>Feed:</h3>
-    {% for tweet in tweet_feed %}
+    {% for tweet in tweet_list reversed %}
         <div class="card">
             <div class="card-header">
                 <span class="font-weight-bold">
@@ -23,8 +23,9 @@
                 {{ tweet.body }}
             </div>
             <div class="card-footer text-center text-muted">
-                <a href="{% url 'tweet_edit' %}">Edit</a> | 
-                <a href="{% url 'tweet_delete' %}">Delete</a>
+                <a href="{% url 'tweet_edit' tweet.pk %}">Edit</a> | 
+                <a href="{% url 'tweet_delete' tweet.pk %}">Delete</a> |
+                <a href="{% url 'tweet_detail' tweet.pk %}">More...</a>
             </div>
         </div>
         <br>

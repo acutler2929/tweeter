@@ -19,6 +19,13 @@ class TweetFeedView(ListView):
     template_name = "tweet_feed.html"
 
 
+class TweetDetailView(DetailView):
+    """Tweet Detail View"""
+
+    model = Tweet
+    template_name = "tweet_detail.html"
+
+
 class TweetCreateView(CreateView):
     """Tweet Create View"""
 
@@ -26,7 +33,6 @@ class TweetCreateView(CreateView):
     template_name = "new_tweet.html"
     fields = (
         "body",
-        "date",
         "author",
     )
     success_url = reverse_lazy("tweet_feed")
@@ -36,11 +42,9 @@ class TweetUpdateView(UpdateView):
     """Tweet Update View"""
 
     model = Tweet
-    fields = (
-        "body",
-        "date",
-    )
+    fields = ("body",)
     template_name = "edit_tweet.html"
+    success_url = reverse_lazy("tweet_feed")
 
 
 class TweetDeleteView(DeleteView):
@@ -48,6 +52,7 @@ class TweetDeleteView(DeleteView):
 
     model = Tweet
     template_name = "delete_tweet.html"
+    success_url = reverse_lazy("tweet_feed")
 
 
 # TODO:
