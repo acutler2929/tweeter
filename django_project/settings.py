@@ -42,12 +42,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "crispy_bootstrap5",
+    "django_dump_die",      # UNINSTALL BEFORE PUBLISHING
     "accounts.apps.AccountsConfig",
     "tweeter.apps.TweeterConfig",
     "tweets.apps.TweetsConfig",
 ]
 
 MIDDLEWARE = [
+    "django_dump_die.middleware.DumpAndDieMiddleware",      # UNINSTALL BEFORE PUBLISHING
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",

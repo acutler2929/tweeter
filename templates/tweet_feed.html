@@ -23,8 +23,10 @@
                 {{ tweet.body }}
             </div>
             <div class="card-footer text-center text-muted">
+                {% if tweet.author == request.user %}
                 <a href="{% url 'tweet_edit' tweet.pk %}">Edit</a> | 
                 <a href="{% url 'tweet_delete' tweet.pk %}">Delete</a> |
+                {% endif %}
                 <a href="{% url 'tweet_detail' tweet.pk %}">More...</a>
             </div>
         </div>

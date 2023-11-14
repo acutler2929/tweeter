@@ -16,6 +16,12 @@
         <p>{{ tweet.body }}</p>
     </div>
     <p>
+        {% if tweet.author == request.user %}
+        <a href="{% url 'tweet_edit' tweet.pk %}">Edit</a> | 
+        <a href="{% url 'tweet_delete' tweet.pk %}">Delete</a>
+        {% endif %}
+    </p>
+    <p>
         Back to
         <a href="{% url 'tweet_feed' %}">
             Tweet Feed
