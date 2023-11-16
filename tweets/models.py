@@ -6,6 +6,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
+
 class Tweet(models.Model):
     """Tweet class"""
 
@@ -19,9 +20,27 @@ class Tweet(models.Model):
     # not needed since tweets have no titles
     # def __str__(self):
     #     """String method"""
-        
+
     #     return self.title
-    
+
     def get_absolute_url(self):
         return reverse("tweet_detail", kwargs={"pk": self.pk})
-    
+
+
+class Reply(models.Model):
+    """Reply Model"""
+
+    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE)
+    reply = models.CharField(max_length=140)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        """String method"""
+        return self.reply
+
+    def get_absolute_url(self):
+        """Get absolute URL"""
+        return reverse("tweet_feed")
