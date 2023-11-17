@@ -25,7 +25,7 @@
     <hr>
 
     <h3>Add a reply</h3>
-    <form>
+    <form method="POST">
         {% csrf_token %}
         {{ form | crispy }}
         <button class="btn btn-success ml-2" type="submit">

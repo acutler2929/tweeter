@@ -83,15 +83,12 @@ class TweetCreateView(LoginRequiredMixin, CreateView):
 
     model = Tweet
     template_name = "new_tweet.html"
-    fields = (
-        "body",
-        "author",
-    )
+    fields = ("body",)
     success_url = reverse_lazy("tweet_feed")
 
     def form_valid(self, form):
         """Set author to whoever is logged in"""
-        form.instance.author = self.request.author
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
 
