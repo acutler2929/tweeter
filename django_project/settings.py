@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "tweeter.apps.TweeterConfig",
     "tweets.apps.TweetsConfig",
+    "apis.apps.ApisConfig",
 ]
 
 MIDDLEWARE = [

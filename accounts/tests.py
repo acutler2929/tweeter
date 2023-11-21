@@ -1,3 +1,6 @@
+#       Alice Cutler
+#       CIS 218
+#       October 25, 2023
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
