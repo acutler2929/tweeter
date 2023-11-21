@@ -16,6 +16,11 @@ class Tweet(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name="liked_tweets",
+        blank=True,
+    )
 
     # not needed since tweets have no titles
     # def __str__(self):
@@ -25,6 +30,10 @@ class Tweet(models.Model):
 
     def get_absolute_url(self):
         return reverse("tweet_detail", kwargs={"pk": self.pk})
+    
+    def get_like_url(self):
+        """Get like URL based on pk"""
+        return reverse("tweet_like", kwargs={"pk": self.pk})
 
 
 class Reply(models.Model):

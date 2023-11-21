@@ -7,7 +7,9 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin,
     PermissionRequiredMixin,
 )
-from django.db.models.query import QuerySet
+# from django.db.models.query import QuerySet
+from django.http import JsonResponse
+from django.views import View
 from django.views.generic import ListView, DetailView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import (
@@ -123,6 +125,37 @@ class TweetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
 
         return obj.author == self.request.user
+    
+
+class TweetLikeView(LoginRequiredMixin, View):
+    """Tweet Like View"""
+
+    def get(self, request, *args, **kwargs):
+        """GET request"""
+
+        # Fetch data that was sent by ajax from the request object.
+        tweet_id = request.GET.get("tweet_id", None)
+        tweet_action = request.GET.get("tweet_action", None)
+        # If there is no data, return an Error JSON Response
+        if not tweet_id or not tweet_action:
+            return JsonResponse(
+                {
+                    "success": False,
+                }
+            )
+        
+        # Got data, Gonna use it to update the likes
+        tweet = Tweet.objects.get(id=tweet_id)
+        if tweet_action == "like":
+            tweet.likes.add(request.user)
+        else:
+            tweet.likes.remove(request.user)
+
+        return JsonResponse(
+            {
+                "success": True,
+            }
+        )
 
 
 # TODO: add profile views? or do they go in accounts???

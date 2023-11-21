@@ -40,8 +40,8 @@ class ApiTweetDetailView(LoginRequiredMixin, View):
         return JsonResponse(tweet, safe=False)
 
 
-class ApiTweetListView(LoginRequiredMixin, View):
-    """Api Tweet List View"""
+class ApiTweetFeedView(LoginRequiredMixin, View):
+    """Api Tweet Feed View"""
 
     def get(self, request, *args, **kwargs):
         """Handle GET request"""

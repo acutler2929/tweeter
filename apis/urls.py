@@ -7,7 +7,7 @@ from .views import (
     ApiReplyDetailView,
     ApiReplyListView,
     ApiTweetDetailView,
-    ApiTweetListView,
+    ApiTweetFeedView,
 )
 
 urlpatterns = [
@@ -28,7 +28,7 @@ urlpatterns = [
     ),
     path(
         "tweets/",
-        ApiTweetListView.as_view(),
+        ApiTweetFeedView.as_view(),
         name="api_tweet_list",
     ),
 ]

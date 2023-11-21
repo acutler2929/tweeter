@@ -9,6 +9,7 @@ from .views import (
     TweetDetailView,
     TweetUpdateView,
     TweetDeleteView,
+    TweetLikeView,
 )
 
 urlpatterns = [
@@ -17,4 +18,5 @@ urlpatterns = [
     path("<int:pk>/", TweetDetailView.as_view(), name="tweet_detail"),
     path("<int:pk>/edit", TweetUpdateView.as_view(), name="tweet_edit"),
     path("<int:pk>/delete", TweetDeleteView.as_view(), name="tweet_delete"),
+    path("<int:pk>/like/", TweetLikeView.as_view(), name="tweet_like"),
 ]

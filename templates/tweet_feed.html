@@ -20,7 +20,23 @@
                 </span>
             </div>
             <div class="card-body">
-                {{ tweet.body }}
+                <p>{{ tweet.body }}</p>
+                <p>
+                    {% with user_likes=tweet.likes.all %}
+                    <button
+                    data-id="{{ tweet.id }}"
+                    data-action="{% if user in user_likes %}un{% endif %}like"
+                    data-like_url={{ tweet.get_like_url }}
+                    class="btn btn{% if user not in user_likes %}-outline{% endif %}-primary like_button"
+                    >
+                    <i class="like_icon 
+                        bi-hand-thumbs-up{% if user in user_likes %}-fill{% endif %}""
+                        ></i>
+                    <span class="like_count">{{ user_likes|length }}</span>
+                    Likes
+                    </button>
+                    {% endwith %}
+                </p>
             </div>
             <div class="card-footer text-center text-muted">
                 {% if tweet.author == request.user %}
