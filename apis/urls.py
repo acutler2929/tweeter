@@ -12,7 +12,7 @@ from .views import (
 
 urlpatterns = [
     path(
-        "tweets/<int:tweet_pk>/replies/<int:reply_pk/>",
+        "tweets/<int:tweet_pk>/replies/<int:reply_pk>/",
         ApiReplyDetailView.as_view(),
         name="api_reply_detail",
     ),

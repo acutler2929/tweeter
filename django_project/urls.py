@@ -1,3 +1,6 @@
+#       Alice Cutler
+#       CIS 218
+#       October 25, 2023
 """
 URL configuration for django_project project.
 
@@ -21,7 +24,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("tweets", include("tweets.urls")),
+    path("tweets/", include("tweets.urls")),
     path("api/", include("apis.urls")),
     path("", include("tweeter.urls")),
 ]

@@ -10,8 +10,8 @@ $(document).ready(function () {
         let tweet_like_url = target.data('like_url');
 
         // Get icon and count elements
-        let like_icon = target.find('like_icon');
-        let like_count = target.find('like_count');
+        let like_icon = target.find('.like_icon');
+        let like_count = target.find('.like_count');
 
         $.ajax({
             url: tweet_like_url,
@@ -20,13 +20,15 @@ $(document).ready(function () {
                 tweet_action: tweet_action,
             },
         }).done(function (data) {
+            console.log("DATA:")
+            console.log(data)
             // When complete, check to see it was successful
             if (data.success) {
                 // If liked, update elements to match
-                if (article_action === 'like') {
+                if (tweet_action === 'like') {
                     target.data('action', 'unlike');
                     target.removeClass('btn-outline-primary');
-                    target.addClass('primary');
+                    target.addClass('btn-primary');
                     like_icon.removeClass('bi-hand-thumbs-up');
                     like_icon.addClass('bi-hand-thumbs-up-fill');
                     like_count.html(Number(like_count.html() + 1));
