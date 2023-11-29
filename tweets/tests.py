@@ -32,6 +32,11 @@ class TweetTests(TestCase):
             author=cls.user,
         )
 
+    def setUp(self):
+        """log in for testing"""
+
+        self.client.login(username="testuser", password="testpass")
+
     # TESTING MODELS ----------------------------------------------------
     def test_tweet_model(self):
         """Test the tweet model"""
@@ -51,43 +56,43 @@ class TweetTests(TestCase):
     def test_url_exists_as_correct_location_feed(self):
         """Test url exists at correct location Feed"""
         # TODO: SEE IF THERE IS A WAY TO DO THIS ONLY ONCE...
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         response = self.client.get("/tweets/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_detail(self):
         """Test url exists at correct location Detail"""
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(f"/tweets/{self.tweet.pk}/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_new_tweet(self):
         """Test url exists at correct location New Tweet"""
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         response = self.client.get("/tweets/new/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_edit_tweet(self):
         """Test url exists at correct location Edit Tweet"""
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(f"/tweets/{self.tweet.pk}/edit/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_delete_tweet(self):
         """Test url exists at correct location Delete Tweet"""
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(f"/tweets/{self.tweet.pk}/delete/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_profile_private(self):
         """Test url exists at correct location Profile Private"""
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         # TODO
         pass
 
     def test_url_exists_as_correct_location_profile_public(self):
         """Test url exists at correct location Profile Public"""
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         # TODO
         pass
 
@@ -95,7 +100,7 @@ class TweetTests(TestCase):
     def test_tweet_feed_view(self):
         """Test Tweet Feed View"""
 
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(reverse("tweet_feed"))
 
         self.assertEqual(response.status_code, 200)
@@ -105,7 +110,7 @@ class TweetTests(TestCase):
     def test_tweet_detail_view(self):
         """Test Tweet Detail View"""
 
-        self.client.login(username="testuser", password="testpass")
+        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(
             reverse("tweet_detail", kwargs={"pk": self.tweet.pk})
         )
@@ -162,10 +167,10 @@ class TweetTests(TestCase):
         # TODO: FOR SOME REASON, THIS DOESN'T POST A NEW REPLY OBJECT
         response = self.client.post(
             reverse("tweet_detail", args=str(self.tweet.pk)),
-            {"body": "my other test reply"},
+            {"reply": "my other test reply"},
         )
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Reply.objects.last().tweet.body, "my updated tweet")
+        self.assertEqual(Reply.objects.last().tweet.body, "my test tweet")
         self.assertEqual(Reply.objects.last().reply, "my other test reply")
         self.assertEqual(Reply.objects.last().author.pk, self.user.id)
 
@@ -174,4 +179,4 @@ class TweetTests(TestCase):
 
         response = self.client.post(reverse("tweet_delete", args=str(self.tweet.pk)))
         self.assertEqual(response.status_code, 302)
-        self.assertNotEqual(Tweet.objects.last().body, "my updated tweet")
+        self.assertEqual(Tweet.objects.last(), None)
