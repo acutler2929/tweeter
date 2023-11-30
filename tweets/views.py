@@ -7,6 +7,8 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin,
     PermissionRequiredMixin,
 )
+from django.db.models.query import QuerySet
+
 # from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.views import View
@@ -125,7 +127,7 @@ class TweetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
 
         return obj.author == self.request.user
-    
+
 
 class TweetLikeView(LoginRequiredMixin, View):
     """Tweet Like View"""
@@ -143,7 +145,7 @@ class TweetLikeView(LoginRequiredMixin, View):
                     "success": False,
                 }
             )
-        
+
         # Got data, Gonna use it to update the likes
         tweet = Tweet.objects.get(id=tweet_id)
         if tweet_action == "like":
@@ -158,11 +160,29 @@ class TweetLikeView(LoginRequiredMixin, View):
         )
 
 
-class ProfileViewPublic(LoginRequiredMixin, ListView):
-    """Public Profile View"""
-    # TODO:
+# class ProfileViewPublic(LoginRequiredMixin, ListView):
+#     """Public Profile View"""
+
+#     model = Tweet
+#     template_name = "profile_public.html"
+
+#     def get_queryset(self, **kwargs):
+#         query = (
+#             super().get_queryset(**kwargs)
+#             # filter to just show posts by selected author
+#             .filter(author__username=self.kwargs["author"])
+#         )
+#         query.order_by("-date")
+
+#         return query
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+
+#         return context
 
 
-class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin):
-    """Private Profile View"""
-    # TODO:
+# class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin):
+#     """Private Profile View"""
+
+#     # TODO:

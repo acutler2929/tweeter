@@ -10,3 +10,4 @@ class CustomUser(AbstractUser):
     """Custom User Model"""
 
     age = models.PositiveIntegerField(null=True, blank=True)
+    # tweets = models.ForeignKey()
