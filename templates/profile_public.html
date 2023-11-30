@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% comment %}
+        Alice Cutler
+        CIS 218
+        October 25, 2023
+{% endcomment %}
+
+{% block title %}Your Feed{% endblock title %}
+
+{% block content %}
+<h3>Your Feed:</h3>
+    {% for tweet in tweet_list reversed %}
+        <div class="card">
+            <div class="card-header">
+                <span class="font-weight-bold">
+                    <a>
+                        {{ tweet.author }} | {{ tweet.date }}
+                    </a>
+                </span>
+            </div>
+            <div class="card-body">
+                <p>{{ tweet.body }}</p>
+                <p>
+                    {% with user_likes=tweet.likes.all %}
+                    <button
+                    data-id="{{ tweet.id }}"
+                    data-action="{% if user in user_likes %}un{% endif %}like"
+                    data-like_url={{ tweet.get_like_url }}
+                    class="btn btn{% if user not in user_likes %}-outline{% endif %}-primary like_button"
+                    >
+                    <i class="like_icon 
+                        bi-hand-thumbs-up{% if user in user_likes %}-fill{% endif %}"
+                        ></i>
+                    <span class="like_count">{{ user_likes|length }}</span>
+                    Likes
+                    </button>
+                    {% endwith %}
+                </p>
+            </div>
+            <div class="card-footer text-center text-muted">
+                {% if tweet.author == request.user %}
+                <a href="{% url 'tweet_edit' tweet.pk %}">Edit</a> | 
+                <a href="{% url 'tweet_delete' tweet.pk %}">Delete</a> |
+                {% endif %}
+                <a href="{% url 'tweet_detail' tweet.pk %}">More...</a>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock content %}

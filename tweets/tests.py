@@ -19,8 +19,6 @@ class TweetTests(TestCase):
             username="testuser", email="test@email.com", password="testpass"
         )
 
-        # TODO: MAYBE CREATE A SECOND USER THAT IS NOT LOGGED IN
-        # TO TEST PUBLIC PROFILE VIEW ???
         cls.tweet = Tweet.objects.create(
             body="my test tweet",
             author=cls.user,
@@ -34,7 +32,6 @@ class TweetTests(TestCase):
 
     def setUp(self):
         """log in for testing"""
-
         self.client.login(username="testuser", password="testpass")
 
     # TESTING MODELS ----------------------------------------------------
@@ -55,52 +52,43 @@ class TweetTests(TestCase):
     # TESTING URLS ------------------------------------------------------
     def test_url_exists_as_correct_location_feed(self):
         """Test url exists at correct location Feed"""
-        # TODO: SEE IF THERE IS A WAY TO DO THIS ONLY ONCE...
-        # self.client.login(username="testuser", password="testpass")
+       
         response = self.client.get("/tweets/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_detail(self):
         """Test url exists at correct location Detail"""
-        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(f"/tweets/{self.tweet.pk}/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_new_tweet(self):
         """Test url exists at correct location New Tweet"""
-        # self.client.login(username="testuser", password="testpass")
         response = self.client.get("/tweets/new/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_edit_tweet(self):
         """Test url exists at correct location Edit Tweet"""
-        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(f"/tweets/{self.tweet.pk}/edit/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_delete_tweet(self):
         """Test url exists at correct location Delete Tweet"""
-        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(f"/tweets/{self.tweet.pk}/delete/")
         self.assertEqual(response.status_code, 200)
 
     def test_url_exists_as_correct_location_profile_private(self):
         """Test url exists at correct location Profile Private"""
-        # self.client.login(username="testuser", password="testpass")
         # TODO
         pass
 
     def test_url_exists_as_correct_location_profile_public(self):
         """Test url exists at correct location Profile Public"""
-        # self.client.login(username="testuser", password="testpass")
         # TODO
         pass
 
     # TESTING VIEWS -----------------------------------------------------
     def test_tweet_feed_view(self):
         """Test Tweet Feed View"""
-
-        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(reverse("tweet_feed"))
 
         self.assertEqual(response.status_code, 200)
@@ -109,8 +97,6 @@ class TweetTests(TestCase):
 
     def test_tweet_detail_view(self):
         """Test Tweet Detail View"""
-
-        # self.client.login(username="testuser", password="testpass")
         response = self.client.get(
             reverse("tweet_detail", kwargs={"pk": self.tweet.pk})
         )
@@ -125,8 +111,6 @@ class TweetTests(TestCase):
         """Test Profile Private View"""
         pass
 
-    # TODO: MAYBE CREATE A SECOND USER THAT IS NOT LOGGED IN
-    # TO TEST PUBLIC PROFILE VIEW ???
     def test_profile_public_view(self):
         """Test Profile Public View"""
         pass
@@ -135,7 +119,6 @@ class TweetTests(TestCase):
     def test_new_tweet(self):
         """Test New Tweet"""
 
-        # TODO: FOR SOME REASON, THIS DOESN'T POST A NEW TWEET OBJECT
         response = self.client.post(
             reverse("tweet_new"),
             {
@@ -150,7 +133,6 @@ class TweetTests(TestCase):
     def test_edit_tweet(self):
         """Test Edit Tweet"""
 
-        # TODO: FOR SOME REASON, THIS DOESN'T EDIT A TWEET OBJECT
         response = self.client.post(
             reverse("tweet_edit", args=str(self.tweet.pk)),
             {
@@ -164,7 +146,6 @@ class TweetTests(TestCase):
     def test_add_reply(self):
         """Test Add Reply"""
 
-        # TODO: FOR SOME REASON, THIS DOESN'T POST A NEW REPLY OBJECT
         response = self.client.post(
             reverse("tweet_detail", args=str(self.tweet.pk)),
             {"reply": "my other test reply"},

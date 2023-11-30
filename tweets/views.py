@@ -158,4 +158,11 @@ class TweetLikeView(LoginRequiredMixin, View):
         )
 
 
-# TODO: add profile views? or do they go in accounts???
+class ProfileViewPublic(LoginRequiredMixin, ListView):
+    """Public Profile View"""
+    # TODO:
+
+
+class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin):
+    """Private Profile View"""
+    # TODO:
