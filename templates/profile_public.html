@@ -10,7 +10,13 @@
 
 {% block content %}
 <h3>{{ customuser }}'s Feed</h3>
-<p>Joe is {{ customuser.age }} years old</p>
+<p>{{ customuser }} is {{ customuser.age }} years old</p>
+<p>
+    Back to
+    <a href="{% url 'tweet_feed' %}">
+        Tweet Feed
+    </a>
+</p>
     {% for tweet in customuser.tweet_set.all reversed %}
         <div class="card">
             <div class="card-header">

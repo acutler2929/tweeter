@@ -41,6 +41,13 @@ October 25, 2023
                             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                                 <li>
                                     <a  class="dropdown-item"
+                                        href="{% url 'profile_private' user.pk%}"
+                                    >
+                                        Edit Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a  class="dropdown-item"
                                         href="{% url 'password_change' %}"
                                     >
                                         Change Password

@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser
 
 
@@ -20,8 +20,6 @@ class SignUpView(CreateView):
 
 class ProfileViewPublic(LoginRequiredMixin, DetailView):
     """Public Profile View"""
-
-    # TODO: customize to specific user
 
     model = CustomUser
     template_name = "profile_public.html"
@@ -38,7 +36,23 @@ class ProfileViewPublic(LoginRequiredMixin, DetailView):
         return context
 
 
-class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin):
+class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     """Private Profile View"""
 
-    # TODO:
+    model = CustomUser
+    form_class = CustomUserChangeForm
+    success_url = reverse_lazy("tweet_feed")
+    template_name = "profile_private.html"
+
+    def get_queryset(self):
+        query = super().get_queryset()
+
+        return query
+
+    def test_func(self):
+        """Test method that is required by UserPassesTestMixin
+        Allows for arbitrary checking of criteria to know if
+        user can visit view"""
+        obj = self.get_object()
+
+        return obj.username == self.request.user

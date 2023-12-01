@@ -10,5 +10,5 @@ urlpatterns = [
     path(
         "public_profile/<int:pk>/", ProfileViewPublic.as_view(), name="profile_public"
     ),
-    # path("profile/<int:pk>", ProfileViewPrivate.as_view(), name="profile_private"),
+    path("profile/<int:pk>/", ProfileViewPrivate.as_view(), name="profile_private"),
 ]
