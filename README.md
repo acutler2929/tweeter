@@ -1,8 +1,9 @@
 # Assignment 4 - Creating Tweeter (A Twitter Clone)
 
 ## Author
-
-
+#   Alice Cutler
+#   CIS 218
+#   November 29, 2023
 
 ## Description
 
@@ -114,7 +115,8 @@ https://getbootstrap.com/docs/4.0/getting-started/introduction/
 
 ## Outside Resources Used
 
-
+No outside resources used.
 
 ## Known Problems, Issues, And/Or Errors in the Program
 
+Profile edit functionality does not update the users profile.
