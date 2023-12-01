@@ -3,11 +3,11 @@
 #       October 25, 2023
 
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import User
 
 from .forms import CustomUserCreationForm
+from .models import CustomUser
 
 
 class SignUpView(CreateView):
@@ -18,11 +18,12 @@ class SignUpView(CreateView):
     template_name = "registration/signup.html"
 
 
-class ProfileViewPublic(LoginRequiredMixin, ListView):
+class ProfileViewPublic(LoginRequiredMixin, DetailView):
     """Public Profile View"""
+
     # TODO: customize to specific user
 
-    model = User
+    model = CustomUser
     template_name = "profile_public.html"
 
     def get_queryset(self):
@@ -30,7 +31,7 @@ class ProfileViewPublic(LoginRequiredMixin, ListView):
         # query.order_by("-date")
 
         return query
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -39,4 +40,5 @@ class ProfileViewPublic(LoginRequiredMixin, ListView):
 
 class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin):
     """Private Profile View"""
+
     # TODO:
