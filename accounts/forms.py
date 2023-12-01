@@ -29,4 +29,10 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         # IMPLICIT fields definition
-        fields = UserChangeForm.Meta.fields
+        # fields = UserChangeForm.Meta.fields
+        # EXPLICIT
+        fields = (
+            "username",
+            "email",
+            "age",
+        )

@@ -10,7 +10,7 @@
 
 {% block content %}
 <h3>{{ customuser }}'s Feed</h3>
-<p>{{ customuser }} is {{ customuser.age }} years old</p>
+<p>{{ customuser.email }}</p>
 <p>
     Back to
     <a href="{% url 'tweet_feed' %}">

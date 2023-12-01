@@ -76,16 +76,6 @@ class TweetTests(TestCase):
         response = self.client.get(f"/tweets/{self.tweet.pk}/delete/")
         self.assertEqual(response.status_code, 200)
 
-    def test_url_exists_as_correct_location_profile_private(self):
-        """Test url exists at correct location Profile Private"""
-        # TODO
-        pass
-
-    def test_url_exists_as_correct_location_profile_public(self):
-        """Test url exists at correct location Profile Public"""
-        # TODO
-        pass
-
     # TESTING VIEWS -----------------------------------------------------
     def test_tweet_feed_view(self):
         """Test Tweet Feed View"""

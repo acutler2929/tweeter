@@ -36,7 +36,7 @@ class ProfileViewPublic(LoginRequiredMixin, DetailView):
         return context
 
 
-class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     """Private Profile View"""
 
     model = CustomUser
@@ -55,4 +55,4 @@ class ProfileViewPrivate(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         user can visit view"""
         obj = self.get_object()
 
-        return obj.username == self.request.user
+        return obj.username == self.request.user.username
